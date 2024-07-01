@@ -9,7 +9,7 @@ int main(void)
         while(1)
         {
             wprintf(L"Правила('?'). Выход('q').\nНачать игру?('y')\n");
-            wscanf(L"%lc", &charm);
+            wscanf(L"%2lc", &charm);
             if(charm == 'q')
             {
                 //nothing to do and exit
@@ -19,6 +19,8 @@ int main(void)
             {
                 wprintf(L"Нужны правила?\n");
             }
+            else
+                continue;
         }
         return 0;
     }
