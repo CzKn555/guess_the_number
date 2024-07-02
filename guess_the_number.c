@@ -1,6 +1,7 @@
 //Игра "Угадай число". В данной игре вы должны угадать число, используя подсказки.
 #include <locale.h>
 #include <wchar.h>
+#include <wctype.h>
 void game(void);
 int main(void)
     {
@@ -23,5 +24,9 @@ int main(void)
     }
 void game(void)
 {
-    wprintf(L"И так, начнём!\n");
+    wchar_t pseudoInt;
+    wprintf(L"И так, начнём!\nПеред вами четыре набора чисел, угадайте загаданное число.\n");
+    wscanf(L"%2lc", &pseudoInt);
+    if(iswdigit(pseudoInt))
+        wprintf(L"Это число.\n");
 }
