@@ -27,9 +27,11 @@ wchar_t * hintMessage(void)
 {
     return L"mess\n";
 }
-void mathEngine(int inter)
+int mathEngine(void)
 {
     //empty
+    if(hiddenNumber == inter)
+        return 0;
 }
 void game(void)
 {
@@ -38,18 +40,23 @@ void game(void)
     wprintf(L"Итак, начнём!\n");
     while(1)
     {
-
+        int hiddenNumber = rand() % 90 + 10;
         wprintf(L"%d этап, значения от %d до %d. Угадайте число. Подсказка('h').\nПервая подсказка: %ls", stage, a, b, hintMessage());
-
         do
         {
         wscanf(L"%2lc", &pseudoInt);
         if(iswdigit(pseudoInt))
             {
-            
+            if(pseudoInt == inter)
+                {
+                wprintf(L"Правильно!");
+                stage ++;
+                
+                }
             inter = pseudoInt - '0';
+            mathEngine();
             wprintf(L"%d\n", inter);
-            wprintf(L"%d\n", rand() % 90 + 10);
+            wprintf(L"%d\n", hiddenNumber);
             }
         else if (pseudoInt == 'h') 
         {
