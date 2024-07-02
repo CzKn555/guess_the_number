@@ -30,8 +30,8 @@ wchar_t * hintMessage(void)
 int mathEngine(void)
 {
     //empty
-    if(hiddenNumber == inter)
-        return 0;
+    // if(hiddenNumber == inter)
+    //     return 0;
 }
 void game(void)
 {
