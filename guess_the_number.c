@@ -35,30 +35,41 @@ int mathEngine(void)
 }
 void game(void)
 {
-    wchar_t pseudoInt;
-    int inter = 0, stage = 1, a = 0, b = 9;
+    wchar_t pseudoInt[5];
+    int inter = 0, stage = 1, maxInt = 10, minInt = 0, countAttempts = 0;
     wprintf(L"Итак, начнём!\n");
     while(1)
     {
-        int hiddenNumber = rand() % 90 + 10;
-        wprintf(L"%d этап, значения от %d до %d. Угадайте число. Подсказка('h').\nПервая подсказка: %ls", stage, a, b, hintMessage());
+        int hiddenNumber = rand() % (maxInt - minInt) + minInt;
+        wprintf(L"%d этап, значения от %d до %d. Угадайте число. Подсказка('h').\nПервая подсказка: %ls", stage, minInt, maxInt - 1, hintMessage());
         do
         {
-        wscanf(L"%2lc", &pseudoInt);
-        if(iswdigit(pseudoInt))
+        wscanf(L"%4ls", pseudoInt);
+        for(wchar_t c; (c = getwchar()) != WEOF && c != '\n';);
+        if(iswdigit(pseudoInt[0]))
             {
-            if(pseudoInt == inter)
+            if(inter == hiddenNumber)
                 {
-                wprintf(L"Правильно!");
+                wprintf(L"Правильно!\nИдём дальше!\n");
                 stage ++;
-                
+                if(stage == 4)
+                    {
+                        maxInt = 100;
+                        minInt = 10;
+                    }
+                else if (stage == 8) 
+                {
+                    maxInt = 1000;
+                    minInt = 100;
                 }
-            inter = pseudoInt - '0';
+                break;
+                }
+            //inter = pseudoInt - '0';
             mathEngine();
-            wprintf(L"%d\n", inter);
-            wprintf(L"%d\n", hiddenNumber);
+            wprintf(L"%ls\n", pseudoInt);
+            wprintf(L"%ld\n", hiddenNumber);
             }
-        else if (pseudoInt == 'h') 
+        else if (pseudoInt[0] == 'h') 
         {
             wprintf(L"%ls", hintMessage());
         }
